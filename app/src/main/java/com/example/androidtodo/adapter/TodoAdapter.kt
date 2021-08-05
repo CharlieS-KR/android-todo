@@ -21,7 +21,7 @@ class TodoAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val adapterLayout =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.todo_item, parent)
+                .inflate(R.layout.todo_item, parent, false)
         return TodoViewHolder(adapterLayout)
     }
 
