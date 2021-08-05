@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var todoRecyclerView: RecyclerView
     lateinit var addButton: Button
 //    lateinit var checkBox: CheckBox
+    lateinit var todoAdapter: TodoAdapter
 
     private val myTodos: MutableList<Todo> = mutableListOf(
         Todo("eat dinner", false)
@@ -27,10 +28,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        todoAdapter = TodoAdapter(this, myTodos)
         editText = findViewById<EditText>(R.id.todo_input)
 
         todoRecyclerView = findViewById<RecyclerView>(R.id.todo_recycler_view)
-        todoRecyclerView.adapter = TodoAdapter(this, myTodos)
+        todoRecyclerView.adapter = todoAdapter
         todoRecyclerView.setHasFixedSize(true)
 
         addButton = findViewById<Button>(R.id.todo_button)
@@ -39,14 +41,17 @@ class MainActivity : AppCompatActivity() {
             hideKeyboard()
         }
 
-//        checkBox = findViewById<CheckBox>(R.id.todoCheckbox)
-//        checkBox.setOnClickListener{view: View -> println(view)}
+//        checkBox = findViewById<CheckBox>(R.id.todoCheckbox)!!
+//        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+//            val buttonID: Int = buttonView.getId()
+//            println("Here's our button $buttonID")
+//        }
     }
 
     private fun addToTodos() {
         myTodos.add(Todo(editText.text.toString(), false))
         editText.setText("")
-        todoRecyclerView.adapter!!.notifyItemInserted(myTodos.size - 1)
+        todoAdapter.notifyItemInserted(myTodos.size - 1)
     }
 
     private fun hideKeyboard() {
