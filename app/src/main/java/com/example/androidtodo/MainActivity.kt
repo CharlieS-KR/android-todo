@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private fun addToTodos() {
         myTodos.add(Todo(editText.text.toString(), false))
         editText.setText("")
+        todoRecyclerView.adapter!!.notifyItemInserted(myTodos.size - 1)
     }
 
     private fun hideKeyboard() {
